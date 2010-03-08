@@ -50,6 +50,7 @@ describe BindingTranslator do
       check("Cmd+Alt+W", Swt::SWT::COMMAND + Swt::SWT::ALT + 'W'[0])
       check("Cmd+Shift+W", Swt::SWT::COMMAND + Swt::SWT::SHIFT + 'W'[0])
       check("Alt+Shift+W", Swt::SWT::ALT + Swt::SWT::SHIFT + 'W'[0])
+      check("Ctrl+Tab", Swt::SWT::CTRL + Swt::SWT::TAB)
     end
     
     it "translates Mod+Mod+Mod+letter" do
