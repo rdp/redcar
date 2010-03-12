@@ -6,6 +6,7 @@ module Redcar
   def self.try_to_load_via_drb
     return if ARGV.find{|arg| arg == "--multiple-instance" || arg == '--help' || arg == '-h'}
     port = 9999
+    ARGV.each{|arg| port = $1.to_i if arg =~ /^--port=(\d+)$/}
     begin
       begin
         TCPSocket.new('127.0.0.1', port).close
@@ -13,7 +14,7 @@ module Redcar
         # no other instance is currently running...
         return
       end
-      puts 'attempting to start via running instance' if $VERBOSE
+      puts 'attempting to start via running instance on port ' + port.to_s if $VERBOSE
       require 'drb' # late require to avoid loadup time
       drb = DRbObject.new(nil, "druby://127.0.0.1:#{port}")
       

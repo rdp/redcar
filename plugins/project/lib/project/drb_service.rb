@@ -4,7 +4,9 @@ module Redcar
       def initialize
         # TODO choose a random port instead of hard coded
         begin
-          address = "druby://127.0.0.1:9999"
+          port = 9999
+          ARGV.each{|arg| port = $1.to_i if arg =~ /^--port=(\d+)$/}
+          address = "druby://127.0.0.1:#{port}"
           @drb = DRb.start_service(address, self)
         rescue Errno::EADDRINUSE => e
           puts 'warning--not starting listener (perhaps theres another Redcar already open?)' + e + ' ' + address

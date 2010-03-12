@@ -72,6 +72,7 @@ On Linux:
 
     $ jruby -S spec plugins/#{plugin_name}/spec/
 
+Or $ jruby -S rake specs
   
 ## TESTS (features)
 
@@ -82,6 +83,8 @@ On OSX:
 On Linux:
 
     $ jruby bin/cucumber plugins/#{plugin_name}/features/
+
+Or $ jruby -S rake cucumber
 
 ## LICENSE
 
