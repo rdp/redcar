@@ -112,7 +112,7 @@ RUBY
           commit_test_text1
           @mirror.read.should == result_test_text1
         end
-        
+  "# Redcar REPL\n\n>> nil.foo\nx> NoMethodError: undefined method `foo' for nil:NilClass\n        (repl):1\n        repl:3:in `initialize'\n>> nil.foo"       
         it "should display errors" do
           @mirror.commit(prompt + ">> nil.foo")
           @mirror.read.should == (<<-RUBY).chomp
@@ -120,7 +120,7 @@ RUBY
 
 >> nil.foo
 x> NoMethodError: undefined method `foo' for nil:NilClass
-        (repl):1
+        (repl):3:in `initialize'
 >> nil.foo
 RUBY
         end

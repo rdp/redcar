@@ -57,9 +57,10 @@ module Redcar
         else
           command = contents.split(prompt).last
         end
+        where = contents.split("\n").length - command.split("\n").length
         @history << [command, []]
         begin
-          result, entry_type = @instance.execute(command).inspect, :result
+          result, entry_type = @instance.execute(command, where).inspect, :result
         rescue Object => e
           result, entry_type = format_error(e), :error
         end
@@ -91,7 +92,6 @@ module Redcar
       
       def format_error(e)
         backtrace = e.backtrace.reject{|l| l =~ /internal_mirror/}
-        backtrace.unshift("(repl):1")
         "#{e.class}: #{e.message}\n        #{backtrace.join("\n        ")}"
       end
       
@@ -107,12 +107,12 @@ module Redcar
           "main"
         end
         
-        def execute(command)
+        def execute(command, line_no)
           orig_stdout = $stdout
           stdout_handler = StringIO.new
           $stdout = stdout_handler
           begin
-            result = eval(command, @binding)
+            result = eval(command, @binding, '(repl)', line_no)
           ensure
             $stdout.rewind
             @output = $stdout.read
