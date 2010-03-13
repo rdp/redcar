@@ -23,7 +23,7 @@ RUBY
 
 >> $internal_repl_test = 707
 => 707
->> 
+>> $internal_repl_test = 707
 RUBY
     end
 
@@ -47,7 +47,7 @@ RUBY
 => 707
 >> $internal_repl_test = 909
 => 909
->> 
+>> $internal_repl_test = 909
 RUBY
     end
     
@@ -121,9 +121,8 @@ RUBY
 >> nil.foo
 x> NoMethodError: undefined method `foo' for nil:NilClass
         (repl):1
->> 
+>> nil.foo
 RUBY
-        # ` RUBY
         end
       end
     end

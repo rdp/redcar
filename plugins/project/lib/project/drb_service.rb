@@ -61,7 +61,7 @@ module Redcar
             'ok'            
           end
         rescue Exception => e
-          # normally drb would swallow these
+          # normally drb would swallow these...
           puts 'drb got exception:' + e, e.backtrace
           raise e
         end 
