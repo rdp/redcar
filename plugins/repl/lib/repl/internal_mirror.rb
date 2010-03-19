@@ -41,7 +41,6 @@ module Redcar
         end
         str << prompt
         if @history.length > 0
-          puts 'adding', @history.inspect, @history[-1].inspect, 'really', @history[-1].first
           str << @history[-1].first
         end
         str
