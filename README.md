@@ -82,9 +82,9 @@ On OSX:
 
     $ jruby -J-XstartOnFirstThread -J-Djruby.launch.inproc=false bin/cucumber plugins/#{plugin_name}/features
 
-On Linux:
+On Linux/Windows:
 
-    $ jruby bin/cucumber -J-Djruby.launch.inproc=false plugins/#{plugin_name}/features # or specify single feature filename
+    $ jruby -J-Djruby.launch.inproc=false bin/cucumber plugins/#{plugin_name}/features # or specify single feature filename
 
 Or $ jruby -S rake cucumber
 

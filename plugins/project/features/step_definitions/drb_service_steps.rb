@@ -10,6 +10,7 @@ end
 Given /^I startup a remote instance$/ do
   @thread = Thread.new { system("jruby bin/redcar --port=6789") }
   while(!socket_open(6789))
+    print '.'; STDOUT.flush
     sleep 0.1
   end
   puts 'started remote!'
