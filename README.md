@@ -73,18 +73,22 @@ On Linux:
     $ jruby -S spec plugins/#{plugin_name}/spec/
 
 Or $ jruby -S rake specs
+
+For all of them.
   
 ## TESTS (features)
 
 On OSX:
 
-    $ jruby -J-XstartOnFirstThread bin/cucumber plugins/#{plugin_name}/features
+    $ jruby -J-XstartOnFirstThread -J-Djruby.launch.inproc=false bin/cucumber plugins/#{plugin_name}/features
 
 On Linux:
 
-    $ jruby bin/cucumber plugins/#{plugin_name}/features/
+    $ jruby bin/cucumber -J-Djruby.launch.inproc=false plugins/#{plugin_name}/features # or specify single feature filename
 
 Or $ jruby -S rake cucumber
+
+For all of them.
 
 ## LICENSE
 

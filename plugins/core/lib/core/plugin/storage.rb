@@ -45,7 +45,7 @@ module Redcar
       # note: it does not re-read from disk before returning you this value
       def [](key)
         if @last_modified_time
-          if File.stat(path()).mtime != @last_modified_time
+          if File.exist?(path()) && (File.stat(path()).mtime != @last_modified_time)
             rollback
           end
         end
