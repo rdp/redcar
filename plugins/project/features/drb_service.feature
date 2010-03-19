@@ -8,6 +8,7 @@ Feature: Open Files via Drb
     When I open "plugins/project/features/fixtures/winter.txt" from the command line
     Then there should be one edit tab
     And I should remotely see "Wintersmith" in the edit tab
+    Then I shutdown a remote instance
 
 # it should create new files
 

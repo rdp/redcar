@@ -13,6 +13,10 @@ module Redcar
         end
       end
       
+      def shutdown
+        Redcar.app.quit
+      end
+      
       def examine_internals_drb
             all = {}
             all['windows'] = Redcar.app.windows.map{|w|

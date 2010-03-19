@@ -1,5 +1,6 @@
 RequireSupportFiles File.dirname(__FILE__) + "/../../../edit_view/features/"
 require 'fileutils'
+require 'drb'
 
 def reset_project_fixtures
   fixtures_path = File.expand_path(File.dirname(__FILE__) + "/../fixtures")
