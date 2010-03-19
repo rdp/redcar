@@ -12,6 +12,30 @@ module Redcar
           puts 'warning--not starting listener (perhaps theres another Redcar already open?)' + e + ' ' + address
         end
       end
+      
+      def examine_internals_drb
+            all = {}
+            all['windows'] = Redcar.app.windows.map{|w|
+              windows = {}
+              windows['trees'] = w.treebook.trees.collect{|tree| 
+               tree.tree_mirror.respond_to?(:path) ? tree.tree_mirror.path : nil
+              }.compact
+              windows['notebooks'] = w.notebooks.map{|nb|
+                notebooks = {}
+                notebooks['tabs'] = nb.tabs.map{|t| 
+                    t.document.path 
+                }.compact
+                notebooks['focussed'] = true if w.focussed_notebook == nb
+                notebooks
+              }
+              windows['focussed'] = true if Redcar.app.focussed_window == w
+              # focussed window--which?
+              # focussed notebook within each window
+              # focussed tab within each notebook
+              windows 
+            }
+            all
+      end
     
       # opens an item as if from the command line for use via drb
       def open_item_drb(full_path)
