@@ -17,8 +17,16 @@ module Redcar
       def self.generate_menu(builder)
         directories = storage['list']
         directories.each do |dir|
-          builder.item(File.basename(dir)) do 
-            Project.open_dir(dir)
+          if File.directory?(File.expand_path(dir))
+            builder.item(File.basename(dir)) do
+              if File.directory?(File.expand_path(dir))
+                Project.open_dir(dir)
+              else
+                remove_path(dir)
+              end
+            end
+          else
+            remove_path(dir)
           end
         end
       end
@@ -34,7 +42,12 @@ module Redcar
           storage["list"].pop
         end
         storage.save
-        Redcar.app.refresh_menu!
+      end
+      
+      def self.remove_path(path)
+        path = File.expand_path(path)
+        storage["list"].delete(path)
+        storage.save
       end
     end
   end

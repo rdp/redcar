@@ -15,11 +15,11 @@ When /^I open a new edit tab$/ do
 end
 
 When /^I close the focussed tab$/ do
-  Redcar::Top::CloseTabCommand.new.run
+  Redcar.app.focussed_notebook_tab.close
 end
 
 When /^I replace the contents with "([^\"]*)"$/ do |contents|
-  contents = contents.gsub("\\n", "\n").gsub("\\t", "\t")
+  contents = unescape_text(contents)
   win = Redcar.app.windows.first
   tab = win.focussed_notebook.focussed_tab
   cursor_offset = (contents =~ /<c>/)
