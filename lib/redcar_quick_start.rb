@@ -1,11 +1,11 @@
 require 'socket'
 
 module Redcar
+  DRB_PORT = 10021
 
-  # attempt to load via drb if available
   def self.try_to_load_via_drb
     return if ARGV.find{|arg| arg == "--multiple-instance" || arg == '--help' || arg == '-h'}
-    port = 9999
+    port = DRB_PORT
     ARGV.each{|arg| port = $1.to_i if arg =~ /^--port=(\d+)$/}
     begin
       begin
@@ -16,7 +16,7 @@ module Redcar
       end
       puts 'attempting to start via running instance on port ' + port.to_s if $VERBOSE
       require 'drb' # late require to avoid loadup time
-      drb = DRbObject.new(nil, "druby://127.0.0.1:#{port}")
+      drb = DRbObject.new(nil, "druby://127.0.0.1:#{DRB_PORT}")
       
       if ARGV.any?
         ARGV.each do |arg|

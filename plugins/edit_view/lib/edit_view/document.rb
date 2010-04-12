@@ -10,10 +10,8 @@ module Redcar
     
     def self.all_document_controller_types
       result = []
-      Redcar.plugin_manager.loaded_plugins.each do |plugin|
-        if plugin.object.respond_to?(:document_controller_types)
-          result += plugin.object.document_controller_types
-        end
+      Redcar.plugin_manager.objects_implementing(:document_controller_types).each do |object|
+        result += object.document_controller_types
       end
       result
     end
@@ -52,6 +50,7 @@ module Redcar
     
     def save!
       @mirror.commit(to_s)
+      @edit_view.reset_last_checked
       set_modified(false)
     end
     
@@ -80,6 +79,10 @@ module Redcar
         end
         update_from_mirror
       end
+    end
+    
+    def mirror_changed?
+      mirror and mirror.changed?
     end
 
     def verify_text(start_offset, end_offset, text)
@@ -453,13 +456,13 @@ module Redcar
       @edit_view.controller.compound { yield }
     end
     
-    private
-    
     def update_from_mirror
       self.text        = mirror.read
       @modified = false
       @edit_view.title = title_with_star
     end
+    
+    private
     
     def set_modified(boolean)
       @modified = boolean

@@ -13,7 +13,7 @@
 
   <target name="compile" depends="init" description="compile the source " >
     <javac srcdir="${src}" destdir="${build}">
-      <classpath location="vendor/swt/osx/swt.jar"/>
+      <classpath location="vendor/swt/win32/swt.jar"/>
       <classpath location="vendor/jface/org.eclipse.jface.jar"/>
     </javac>
   </target>

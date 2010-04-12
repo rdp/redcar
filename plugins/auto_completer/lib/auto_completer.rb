@@ -28,10 +28,8 @@ module Redcar
     
     def self.all_autocompletion_source_types
       result = []
-      Redcar.plugin_manager.loaded_plugins.each do |plugin|
-        if plugin.object.respond_to?(:autocompletion_source_types)
-          result += plugin.object.autocompletion_source_types
-        end
+      Redcar.plugin_manager.objects_implementing(:autocompletion_source_types).each do |object|
+        result += object.autocompletion_source_types
       end
       result
     end
@@ -83,7 +81,7 @@ module Redcar
       
       def alternatives(prefix)
         sources = AutoCompleter.all_autocompletion_source_types.map do |t| 
-          t.new(doc, Project.focussed_project_path)
+          t.new(doc, Project::Manager.focussed_project.path)
         end
         word_list = WordList.new
         sources.each do |source|

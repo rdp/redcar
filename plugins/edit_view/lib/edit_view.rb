@@ -55,10 +55,9 @@ module Redcar
 
     def self.all_handlers(type)
       result = []
-      Redcar.plugin_manager.loaded_plugins.each do |plugin|
-        if plugin.object.respond_to?(:"#{type}_handlers")
-          result += plugin.object.send(:"#{type}_handlers")
-        end
+      method_name = :"#{type}_handlers"
+      Redcar.plugin_manager.objects_implementing(method_name).each do |object|
+        result += object.send(method_name)
       end
       result.each {|h| Handler.verify_interface!(h) }
     end
@@ -151,6 +150,7 @@ module Redcar
     # loses focus. Sends :focussed_edit_view event.
     def self.focussed_edit_view=(edit_view)
       @focussed_edit_view = edit_view
+      edit_view.check_for_updated_document if edit_view
       notify_listeners(:focussed_edit_view, edit_view)
     end
     
@@ -302,6 +302,30 @@ module Redcar
     
     def delay_parsing
       controller.delay_parsing { yield }
+    end
+    
+    def reset_last_checked
+      @last_checked = Time.now
+    end
+    
+    def check_for_updated_document
+      if document and document.mirror and document.mirror.changed_since?(@last_checked)
+        if document.modified?
+          result = Application::Dialog.message_box(
+                     "This file has been changed on disc, and you have unsaved changes in Redcar.\n\n" + 
+                     "Revert to version on disc (and lose your changes)?",
+                     :buttons => :yes_no
+                    )
+          case result
+          when :yes
+            document.update_from_mirror
+          end
+        else
+          puts "updating document as has changed since #{@last_checked}"
+          document.update_from_mirror
+        end
+      end
+      @last_checked = Time.now
     end
   end
 end
