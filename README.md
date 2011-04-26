@@ -56,11 +56,13 @@ If you're running Windows, as a prerequisite, you'll need to install the rubyzip
 
     $ gem install rubyzip
 
+If you're on any platform, you'll need the bundler gem installed.
+
 Download from github, checkout the submodules and install the jars.
 
     $ git clone git://github.com/redcar/redcar.git
     $ cd redcar
-    $ rake initialise
+    $ rake initialise # installs submodules
     $ bundle
     $ ruby bin/redcar install
 
@@ -94,10 +96,13 @@ On OSX:
 
     $ jruby -J-XstartOnFirstThread -S spec plugins/#{plugin_name}/spec/
 
-On Linux:
+On Linux/Windows:
 
     $ jruby -S spec plugins/#{plugin_name}/spec/
+  
+Or, for all of them:
 
+    $ jruby -S rake specs  
   
 ### Features
 
@@ -105,7 +110,7 @@ On OSX:
 
     $ jruby -J-XstartOnFirstThread bin/cucumber plugins/#{plugin_name}/features
 
-On Linux:
+On Linux/Windows:
 
     $ jruby bin/cucumber plugins/#{plugin_name}/features/
 
