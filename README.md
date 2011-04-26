@@ -43,6 +43,10 @@ Run
 
     $ redcar
 
+To see command line options:
+
+    $ redcar --help
+
 ## PROBLEMS?
 
 * Irc at #redcar on irc.freenode.net
@@ -60,8 +64,8 @@ Download from github, checkout the submodules and install the jars.
 
     $ git clone git://github.com/redcar/redcar.git
     $ cd redcar
+    $ bundle #
     $ rake initialise
-    $ bundle
     $ ruby bin/redcar install
 
 To run:
