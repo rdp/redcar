@@ -271,6 +271,7 @@ module Redcar
     # no edit view is focussed.
     def self.focussed_edit_view=(edit_view)
       if edit_view
+	    return if @last_focussed_edit_view == edit_view
         @last_focussed_edit_view = edit_view
       end
       @focussed_edit_view = edit_view
