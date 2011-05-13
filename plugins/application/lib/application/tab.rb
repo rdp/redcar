@@ -40,9 +40,9 @@ module Redcar
       @title
     end
 
-    def title=(title)
+    def title=(title, tool_tip=nil)
       @title = title
-      notify_listeners(:changed_title, title)
+      notify_listeners(:changed_title, title, tool_tip)
     end
 
     def icon

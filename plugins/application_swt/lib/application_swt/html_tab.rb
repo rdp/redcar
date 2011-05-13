@@ -6,7 +6,7 @@ module Redcar
       
       def initialize(model, notebook)
         super
-        @model.add_listener(:changed_title) { |title| @item.text = title }
+        @model.add_listener(:changed_title) { |title, tooltip| @item.text = title }
       end
       
       def create_tab_widget

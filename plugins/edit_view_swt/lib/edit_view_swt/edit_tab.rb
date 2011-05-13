@@ -7,7 +7,10 @@ module Redcar
       
       def initialize(*args)
         super
-        @model.add_listener(:changed_title) { |title| @item.text = title }
+        @model.add_listener(:changed_title) { |title, tooltip| 
+          @item.text = title 
+          @item.tool_tip_text = tooltip
+        }
       end
       
       # Focuses the CTabItem within the CTabFolder, and gives the keyboard
