@@ -375,7 +375,11 @@ module Redcar
       def self.restore_last_session
         if path = storage['last_open_dir']
           s = Time.now
-          open_project_for_path(path)
+          begin
+            open_project_for_path(path)
+          rescue => e
+            Application::Dialog.message_box(e.to_s, :type => :error)
+          end
         end
 
         if files = storage['files_open_last_session']
