@@ -89,7 +89,7 @@ module Redcar
         unless line > line_count - 1
           # The documents new text is still longer than our previous position, restore position
           line_offset = offset_at_line(line)
-          styledText.setCaretOffset([line_offset + caret, offset_at_line(line + 1) - 1].min)
+          styledText.setCaretOffset([line_offset + caret, offset_at_line(line + 1) - get_line_delimiter.length].min)
           styledText.setTopPixel(top_pixel)
         end
 
